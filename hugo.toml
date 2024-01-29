@@ -1,0 +1,107 @@
+baseURL = "https://heapcreate.com"
+languageCode = "en-us"
+title = "HeapCreate"
+theme = "PaperMod"
+paginate = 5
+enableRobotsTXT = true
+enableInlineShortcodes = true
+buildDrafts = false
+buildFuture = false
+buildExpired = false
+enableEmoji = true
+pygmentsUseClasses = true
+googleAnalytics = "UA-123-45"
+
+[minify]
+disableXML = true
+minifyOutput = true
+
+[params]
+env = "production"
+title = "HeapCreate"
+description = "HeapCrete"
+ShowBreadCrumbs = true
+ShowReadingTime = true
+ShowShareButtons = true
+ShowPostNavLinks = true
+defaultTheme = "auto"
+ShowCodeCopyButtons = true
+UseHugoToc = true
+showtoc = true
+
+  [params.homeInfoParams]
+  Title = "Hello strangers 👋"
+  Content = "This place serves as my note and everything I learnt 🌲"
+
+  [[params.socialIcons]]
+  name = "twitter"
+  url = "https://twitter.com/ahmadshauqi4"
+
+  [[params.socialIcons]]
+  name = "github"
+  url = "https://github.com/nightfury99"
+
+  [[params.socialIcons]]
+  name = "behance"
+  url = "https://www.behance.net/shauqiAppleDeveloper"
+
+  [[params.socialIcons]]
+  name = "medium"
+  url = "https://medium.com/@shauqighost99"
+
+  [params.cover]
+  linkFullImages = true
+
+  [params.assets]
+  favicon = "icons/heapcreate_icon.png"
+
+  [params.label]
+  text = "HeapCreate"
+  icon = "icons/heapcreate_icon.png"
+  iconDark = "icons/heapcreate_icon.png"
+  iconHeight = 20
+
+  [params.fuseOpts]
+  isCaseSensitive = false
+  shouldSort = true
+  location = 0
+  distance = 1_000
+  threshold = 0.4
+  minMatchCharLength = 0
+  keys = [ "title", "permalink", "summary", "content" ]
+
+[outputs]
+home = [ "HTML", "RSS", "JSON" ]
+
+[[menu.main]]
+identifier = "home"
+name = "home"
+url = "/"
+weight = 10
+
+[[menu.main]]
+identifier = "tags"
+name = "tags"
+url = "/tags/"
+weight = 20
+
+[[menu.main]]
+identifier = "archives"
+name = "archives"
+url = "/archives/"
+weight = 30
+
+[[menu.main]]
+identifier = "search"
+name = "search"
+url = "/search/"
+weight = 40
+
+[[menu.main]]
+identifier = "about"
+name = "about"
+url = "/about/"
+weight = 50
+
+[security.funcs]
+getenv = [ "^HUGO_", "^WC_" ]

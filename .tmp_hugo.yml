@@ -21,7 +21,7 @@ minify:
 params:
   env: production # to enable google analytics, opengraph, twitter-cards and schema.
   title: HeapCreate
-  description: "HeapCrete"
+  description: "HeapCreate"
   ShowBreadCrumbs: true
   ShowReadingTime: true
   ShowShareButtons: true
