@@ -96,3 +96,9 @@ menu:
       name: about
       url: /about/
       weight: 50
+
+security:
+funcs:
+getenv:
+- ^HUGO_
+- ^WC_
