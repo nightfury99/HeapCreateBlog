@@ -1,4 +1,4 @@
-baseURL = "https://heapcreate.com"
+baseURL = "https://heapcreate.com/"
 languageCode = "en-us"
 title = "HeapCreate"
 theme = "PaperMod"
