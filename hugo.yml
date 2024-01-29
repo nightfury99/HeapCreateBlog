@@ -98,7 +98,7 @@ menu:
       weight: 50
 
 security:
-funcs:
-getenv:
-- ^HUGO_
-- ^WC_
+  funcs:
+    getenv:
+      - ^HUGO_
+      - ^WC_
