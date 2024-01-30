@@ -28,6 +28,9 @@ defaultTheme = "auto"
 ShowCodeCopyButtons = true
 UseHugoToc = true
 showtoc = true
+comments = true
+giscusTheme = "preferred_color_scheme"
+disableComments = false
 
   [params.homeInfoParams]
   Title = "Hello strangers 👋"
@@ -56,7 +59,7 @@ showtoc = true
   favicon = "icons/heapcreate_icon.png"
 
   [params.label]
-  text = "HeapCreate"
+  text = " HeapCreate"
   icon = "icons/heapcreate_icon.png"
   iconDark = "icons/heapcreate_icon.png"
   iconHeight = 20
