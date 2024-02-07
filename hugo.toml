@@ -19,7 +19,7 @@ minifyOutput = true
 [params]
 env = "production"
 title = "HeapCreate"
-description = "HeapCrete"
+description = "Mainly interested in web/binary exploitation, hardware(development/hacking), and web/mobile development 🚀. I do love developing as well as breaking it."
 ShowBreadCrumbs = true
 ShowReadingTime = true
 ShowShareButtons = true
@@ -108,3 +108,19 @@ weight = 50
 
 [security.funcs]
 getenv = [ "^HUGO_", "^WC_" ]
+
+# [markup] https://gohugo.io/content-management/syntax-highlighting/
+#   [markup.highlight]
+#     anchorLineNos = false
+#     codeFences = true
+#     guessSyntax = false
+#     hl_Lines = ''
+#     hl_inline = false
+#     lineAnchors = ''
+#     lineNoStart = 1
+#     lineNos = false
+#     lineNumbersInTable = true
+#     noClasses = true
+#     noHl = false
+#     style = 'monokai'
+#     tabWidth = 4
