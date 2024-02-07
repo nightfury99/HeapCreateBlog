@@ -453,7 +453,9 @@ After the server started, navigate to `localhost:8080/home` and you will get web
 
 The source code for the `/home` route controller is located on `./src/Controller/HomeController.php` and `./templates/home/index.html.twig` is for its template. You can play around with Twig syntax first before get started.
 
-### Arbitrary File Read
+---
+
+#### Arbitrary File Read
 
 In Symfony, there are many [**Twig extensions defined by Symfony**](https://symfony.com/doc/5.x/reference/twig_reference.html) as shown as Figure 9 such as ***Functions*** and ***Filters***.
 
@@ -515,7 +517,9 @@ public function fileExcerpt(string $file, int $line, int $srcContext = 3): ?stri
 }
 ```
 
-### Arbitrary File Upload / Arbitrary File Write
+---
+
+#### Arbitrary File Upload / Arbitrary File Write
 
 Arbitrary file write and arbitrary file upload is a type of security flaw that allow attackers to upload any kind of file that contains malicious code onto a server. Symfony has their own custom method to upload file to make developer task more easier and cleaner.
 
@@ -605,7 +609,9 @@ The base directory for upload file for `move()` method is under `public/` direct
 
 {{< figure src="/img/posts/understanding_ssti/16.png" caption="Figure 14: Executing uploaded shell" width="100%" align="center" >}}
 
-### Remote Code Execution
+---
+
+#### Remote Code Execution
 
 As we all know, Symfony has global variable like `app`(refer Figure 11), and we already get arbitrary file upload. To achieve code execution, we going to abuse `query()` property under ***Request*** object and ***InputBag*** instance. In case you guys want to understand about how Symfony handle request data, you can refer [here](https://symfony.com/doc/current/components/http_foundation.html#accessing-request-data). Upon reading **InputBag**'s source code, there is a filter method to filter key and the most important thing is, it uses [`filter_var`](https://www.php.net/manual/en/function.filter-var.php) method from php. `filter_var` can accept callback to call any function, thus, user would be able to call "system" to execute OS command.
 
