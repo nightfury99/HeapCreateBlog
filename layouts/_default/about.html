@@ -76,9 +76,10 @@
         <img draggable="true" src="{{ .imageUrl }}" height="350" />
         <h1>{{ .name | default site.Title | markdownify }}</h1>
         <span>{{ .subtitle | markdownify }}</span>
-        <br>
-        <p style="width: 70%;">{{ .description | default site.Title | markdownify }}</p>
+        <br />
+        <p style="width: 70%">
+            {{ .description | default site.Title | markdownify }}
+        </p>
     </div>
 </div>
-{{- end }}
-{{- end }}{{/* end main */}}
+{{- end }} {{- end }}{{/* end main */}}

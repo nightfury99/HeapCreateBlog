@@ -1,0 +1,148 @@
+{{- define "main" }}
+<style>
+    /* Styles of the 404 page of my website. */
+
+    /* body {
+        background: #081421;
+        color: #d3d7de;
+        font-family: "Courier new";
+        font-size: 18px;
+        line-height: 1.5em;
+        cursor: default;
+        } */
+
+    a {
+        color: #fff;
+    }
+
+    .code-area {
+        position: absolute;
+        width: 420px;
+        min-width: 420px;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+    .code-area > span {
+        display: block;
+    }
+
+    @media screen and (max-width: 420px) {
+        .code-area {
+            font-size: 5vw;
+            min-width: auto;
+            width: 95%;
+            margin: auto;
+            padding: 5px;
+            padding-left: 10px;
+            line-height: 6.5vw;
+        }
+    }
+
+    section {
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        & > span {
+            font-size: 60px;
+            font-weight: 500;
+            color: #fff;
+        }
+        & > div {
+            & > span {
+                font-family: "Roboto";
+                display: table;
+                background: #2e2e33;
+                padding: 12px;
+                font-size: 14px;
+                border-radius: 5px;
+                color: #72778f;
+                width: 100%;
+                margin-top: 20px;
+                a {
+                    text-decoration: none;
+                    color: var(--c, #a6accd);
+                    transition: color 0.3s ease;
+                    &:hover {
+                        --c: #fff;
+                    }
+                }
+            }
+        }
+    }
+</style>
+<div
+    class="code-area"
+    style="
+        font-family: &quot;Fira Mono&quot;;
+        color: #d3d7de;
+        font-size: 15px;
+        line-height: 1.4;
+        cursor: default;
+    "
+>
+    <span style="color: #777; font-style: italic">
+        // TODO: handle 404 page 📖
+    </span>
+    <span>
+        <span style="color: #2796ec">#[async_std::main]</span>
+    </span>
+    <span>
+        <span style="color: #2796ec">async fn </span>
+        <span style="color: #d65562">main</span>() ->
+        <span style="color: #d65562">Result</span><(), std::io::Error> {
+    </span>
+    <span>
+        <span style="padding-left: 15px; color: #2796ec">
+            <i style="width: 10px; display: inline-block"></i>let mut
+        </span>
+        <span style="color: #faecc7"> app</span> = tide::<span
+            style="color: #d65562"
+            >new</span
+        >();
+    </span>
+    <span>
+        <span style="padding-left: 15px; color: #2796ec">
+            <i style="width: 10px; display: inline-block"></i>app.</span
+        ><span style="color: #d65562">at</span>(<span style="color: #faecc7"
+            >"/"</span
+        >).<span style="color: #d65562">get</span>(|_|
+        <span style="color: #2796ec">async</span> {
+        <span style="color: #d65562">Ok</span>(<span style="color: #faecc7"
+            >"🚀"</span
+        >) });
+    </span>
+    <span>
+        <span style="padding-left: 15px; color: #2796ec">
+            <i style="width: 10px; display: inline-block"></i>app.</span
+        ><span style="color: #d65562">at</span>(<span style="color: #faecc7"
+            >"*"</span
+        >).<span style="color: #d65562">get</span>(|_|
+        <span style="color: #2796ec">async</span> {
+        <span style="color: #d65562">Ok</span>(<span style="color: #faecc7"
+            >"ヽ(｀Д´)ﾉ"</span
+        >) });
+    </span>
+    <span>
+        <span style="padding-left: 15px; color: #2796ec">
+            <i style="width: 10px; display: inline-block"></i>app.</span
+        ><span style="color: #d65562">listen</span>(<span style="color: #faecc7"
+            >"127.0.0.1:8080"</span
+        >).<span style="color: #2796ec">await</span>?;
+    </span>
+    <span>
+        <span style="padding-left: 15px; color: #d65562">
+            <i style="width: 10px; display: inline-block"></i>Ok</span
+        >(())
+    </span>
+    <span>}</span>
+
+    <section id="section-1">
+        <div>
+            <span>Click Here -> <a href="/">https://heapcreate.com</a></span>
+        </div>
+    </section>
+</div>
+{{- end }}{{/* end main */ -}}
