@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>IDOR on HeapCreate</title>
+    <link>http://localhost:1313/tags/idor/</link>
+    <description>Recent content in IDOR on HeapCreate</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 26 Dec 2022 16:47:01 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/idor/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[WargamesMY 2022] MostFriendlyApp</title>
+      <link>http://localhost:1313/posts/ctf_2022_wargames_mostfriendlyapp/</link>
+      <pubDate>Mon, 26 Dec 2022 16:47:01 +0800</pubDate>
+      <guid>http://localhost:1313/posts/ctf_2022_wargames_mostfriendlyapp/</guid>
+      <description>&lt;p&gt;This web challenge did not provide source code so it is completely blackbox testing. Btw I did not manage to solve all questions on time because of some health related reason 😷.&lt;/p&gt;&#xA;&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;&#xA;&lt;h3 id=&#34;challenge-description&#34;&gt;Challenge Description&lt;/h3&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;🚧 I created an account in this website, but lost my authenticator and forgot my password. Can you help me to get my account back? My username is &lt;code&gt;godam&lt;/code&gt;&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;Before attacking the system, I prefer to understand the system first in term of functionality/features or flow. Basically the challenge have features like:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>[WargamesMY 2022] C0mmand33r</title>
+      <link>http://localhost:1313/posts/ctf_2022_wargames_c0mmand33r/</link>
+      <pubDate>Mon, 26 Dec 2022 16:47:01 +0900</pubDate>
+      <guid>http://localhost:1313/posts/ctf_2022_wargames_c0mmand33r/</guid>
+      <description>&lt;p&gt;Im not going to give full walkthrough for now since im more interested vulnerability on the web. Visit &lt;a href=&#34;https://github.com/WargamesMY/2022/blob/main/writeup/Richard_Parker.pdf&#34;&gt;this link&lt;/a&gt; for full writeup.&lt;/p&gt;&#xA;&lt;h2 id=&#34;walkthrough&#34;&gt;Walkthrough&lt;/h2&gt;&#xA;&lt;h3 id=&#34;usertxt&#34;&gt;user.txt&lt;/h3&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;🚧 &lt;strong&gt;Description&lt;/strong&gt; : User flag located in /home//user.txt&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;We were given a &lt;a href=&#34;https://tryhackme.com/jr/wgm2022medium&#34;&gt;tryhackme&lt;/a&gt; link so if you guys want to give a shot, go check it out. Once the machine boot up, we can start the challenge straight away. After I fired up nmap with simple command &lt;code&gt;sudo nmap -T4 -A -v 10.10.89.238&lt;/code&gt;, two ports were opened which are 22 (SSH) and 3000 (python http server). So we have a python web application on port 3000. After navigating through all possible webpage, there were only two webpage available, login page and register page.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

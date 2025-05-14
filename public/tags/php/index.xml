@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Php on HeapCreate</title>
+    <link>http://localhost:1313/tags/php/</link>
+    <description>Recent content in Php on HeapCreate</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 03 May 2023 16:47:01 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/php/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Understanding SSTI on Twig</title>
+      <link>http://localhost:1313/posts/understanding_ssti/</link>
+      <pubDate>Wed, 09 Nov 2022 16:51:26 +0800</pubDate>
+      <guid>http://localhost:1313/posts/understanding_ssti/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://medium.com/@shauqighost99/understanding-ssti-on-twig-10d7c3431980&#34;&gt;My previous blog on Medium&lt;/a&gt;&lt;/p&gt;&#xA;&lt;figure&gt;&lt;img src=&#34;http://localhost:1313/img/posts/understanding_ssti/1.png&#34; width=&#34;100%&#34;&gt;&#xA;&lt;/figure&gt;&#xA;&#xA;&lt;p&gt;SSTI or Server Side Template Injection, is not a new vulnerability. SSTI already exists more that 5 years I believed and still being use for exploitation untill today. So, I would like to share with you guys about basic understanding on SSTI on Twig and Symfony application (based on past CTF).&lt;/p&gt;&#xA;&lt;h2 id=&#34;what-is-twig&#34;&gt;What is Twig&lt;/h2&gt;&#xA;&lt;p&gt;Before we jump into the main point, let me tell you what Twig actually is and how its work in simple term. Twig is a templating language for PHP, by simply meaning &amp;ldquo;is a tool used to output variables inside HTML&amp;rdquo;. A normal template file extention is .html.twig but it does not realy matter, it could be any text-based format(HTML, XML, CSV, etc.). The syntax for using Twig template is fairly simple such as &lt;code&gt;{{ variable or expression }}&lt;/code&gt; for output and &lt;code&gt;{{ % % }}&lt;/code&gt; for logical operation (for loop, etc.). A template (inside curly bracket) contains variables, function or expression, which then will be replaced with values when template is evaluated. Figure 1 shows how does its work.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Unserialize without unserialize()</title>
+      <link>http://localhost:1313/posts/unserialize_without_unserialize/</link>
+      <pubDate>Wed, 03 May 2023 16:47:01 +0800</pubDate>
+      <guid>http://localhost:1313/posts/unserialize_without_unserialize/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Deserialization vulnerability has been around for a long time especially in php, java and .NET framework. The research community has been interested in deserialization vulnerability for more a decade now. Since &lt;a href=&#34;https://owasp.org/www-pdf-archive/Utilizing-Code-Reuse-Or-Return-Oriented-Programming-In-PHP-Application-Exploits.pdf&#34;&gt;Stefan Essar&lt;/a&gt; originally detailed the possibility of unserializing data controlled by attackers in PHP in 2009, the topic has gained widespread awareness. Thus, new attack chains emerge each year, utilising these flaws in programming languages such as Java and C#.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Emoji Webshell 🐚</title>
+      <link>http://localhost:1313/posts/emoji_webshell/</link>
+      <pubDate>Thu, 22 Sep 2022 15:33:41 +0800</pubDate>
+      <guid>http://localhost:1313/posts/emoji_webshell/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Last time I tried to push myself on learning how to construct a webshell without using any alphabet in PHP. There are a lot of techniques that can be used such as base operation, auto increment, XOR and etc. This &lt;a href=&#34;https://websec-readthedocs-io.translate.goog/zh/latest/language/php/webshell.html?_x_tr_sl=auto&amp;amp;_x_tr_tl=en&amp;amp;_x_tr_hl=zh-CN&#34;&gt;blog&lt;/a&gt; have decent techniques that can be used for obfuscation.&#xA;&lt;figure&gt;&lt;img src=&#34;http://localhost:1313/img/posts/emoji_webshell/1.png&#34;&gt;&#xA;&lt;/figure&gt;&#xA;&lt;/p&gt;&#xA;&lt;h2 id=&#34;objective-of-obfuscated-webshell&#34;&gt;Objective of obfuscated webshell&lt;/h2&gt;&#xA;&lt;p&gt;The objective of obfuscation webshell is simple, execute os command without detection. Im assuming the server&amp;rsquo;s configuration is not disabling php functions like &lt;code&gt;system()&lt;/code&gt;, &lt;code&gt;passthru()&lt;/code&gt;, &lt;code&gt;shell_exec()&lt;/code&gt; and other functions that can execute OS command. If the server disabling those function, there will be another topic to bypass the protection. In this blog, we are going to use base64 as encoding, well, it is not recommended in the real world because WAF and EDR pretty good handling base64, so consider to use other method to encode/encrypt when the payload. Anyway, below is my simple webshell:&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

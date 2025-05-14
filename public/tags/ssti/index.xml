@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SSTI on HeapCreate</title>
+    <link>http://localhost:1313/tags/ssti/</link>
+    <description>Recent content in SSTI on HeapCreate</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 09 Nov 2022 16:51:26 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/ssti/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Understanding SSTI on Twig</title>
+      <link>http://localhost:1313/posts/understanding_ssti/</link>
+      <pubDate>Wed, 09 Nov 2022 16:51:26 +0800</pubDate>
+      <guid>http://localhost:1313/posts/understanding_ssti/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://medium.com/@shauqighost99/understanding-ssti-on-twig-10d7c3431980&#34;&gt;My previous blog on Medium&lt;/a&gt;&lt;/p&gt;&#xA;&lt;figure&gt;&lt;img src=&#34;http://localhost:1313/img/posts/understanding_ssti/1.png&#34; width=&#34;100%&#34;&gt;&#xA;&lt;/figure&gt;&#xA;&#xA;&lt;p&gt;SSTI or Server Side Template Injection, is not a new vulnerability. SSTI already exists more that 5 years I believed and still being use for exploitation untill today. So, I would like to share with you guys about basic understanding on SSTI on Twig and Symfony application (based on past CTF).&lt;/p&gt;&#xA;&lt;h2 id=&#34;what-is-twig&#34;&gt;What is Twig&lt;/h2&gt;&#xA;&lt;p&gt;Before we jump into the main point, let me tell you what Twig actually is and how its work in simple term. Twig is a templating language for PHP, by simply meaning &amp;ldquo;is a tool used to output variables inside HTML&amp;rdquo;. A normal template file extention is .html.twig but it does not realy matter, it could be any text-based format(HTML, XML, CSV, etc.). The syntax for using Twig template is fairly simple such as &lt;code&gt;{{ variable or expression }}&lt;/code&gt; for output and &lt;code&gt;{{ % % }}&lt;/code&gt; for logical operation (for loop, etc.). A template (inside curly bracket) contains variables, function or expression, which then will be replaced with values when template is evaluated. Figure 1 shows how does its work.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

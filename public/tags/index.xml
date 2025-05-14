@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on HeapCreate</title>
+    <link>http://localhost:1313/tags/</link>
+    <description>Recent content in Tags on HeapCreate</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 27 Jan 2024 17:37:10 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C Programming</title>
+      <link>http://localhost:1313/tags/c-programming/</link>
+      <pubDate>Sat, 27 Jan 2024 17:37:10 +0800</pubDate>
+      <guid>http://localhost:1313/tags/c-programming/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Development</title>
+      <link>http://localhost:1313/tags/development/</link>
+      <pubDate>Sat, 27 Jan 2024 17:37:10 +0800</pubDate>
+      <guid>http://localhost:1313/tags/development/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Ctf</title>
+      <link>http://localhost:1313/tags/ctf/</link>
+      <pubDate>Tue, 17 Oct 2023 22:31:44 +0800</pubDate>
+      <guid>http://localhost:1313/tags/ctf/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Deserialization</title>
+      <link>http://localhost:1313/tags/deserialization/</link>
+      <pubDate>Tue, 17 Oct 2023 22:31:44 +0800</pubDate>
+      <guid>http://localhost:1313/tags/deserialization/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>SQL Injection</title>
+      <link>http://localhost:1313/tags/sql-injection/</link>
+      <pubDate>Tue, 17 Oct 2023 00:14:36 +0800</pubDate>
+      <guid>http://localhost:1313/tags/sql-injection/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>SSRF</title>
+      <link>http://localhost:1313/tags/ssrf/</link>
+      <pubDate>Tue, 17 Oct 2023 00:14:36 +0800</pubDate>
+      <guid>http://localhost:1313/tags/ssrf/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Web Hacking</title>
+      <link>http://localhost:1313/tags/web-hacking/</link>
+      <pubDate>Tue, 17 Oct 2023 00:14:36 +0800</pubDate>
+      <guid>http://localhost:1313/tags/web-hacking/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Php</title>
+      <link>http://localhost:1313/tags/php/</link>
+      <pubDate>Wed, 03 May 2023 16:47:01 +0800</pubDate>
+      <guid>http://localhost:1313/tags/php/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Php Internal</title>
+      <link>http://localhost:1313/tags/php-internal/</link>
+      <pubDate>Wed, 03 May 2023 16:47:01 +0800</pubDate>
+      <guid>http://localhost:1313/tags/php-internal/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>IDOR</title>
+      <link>http://localhost:1313/tags/idor/</link>
+      <pubDate>Mon, 26 Dec 2022 16:47:01 +0800</pubDate>
+      <guid>http://localhost:1313/tags/idor/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Boot2root</title>
+      <link>http://localhost:1313/tags/boot2root/</link>
+      <pubDate>Mon, 26 Dec 2022 16:47:01 +0900</pubDate>
+      <guid>http://localhost:1313/tags/boot2root/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>OS Injection</title>
+      <link>http://localhost:1313/tags/os-injection/</link>
+      <pubDate>Mon, 26 Dec 2022 16:47:01 +0900</pubDate>
+      <guid>http://localhost:1313/tags/os-injection/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>SSTI</title>
+      <link>http://localhost:1313/tags/ssti/</link>
+      <pubDate>Wed, 09 Nov 2022 16:51:26 +0800</pubDate>
+      <guid>http://localhost:1313/tags/ssti/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

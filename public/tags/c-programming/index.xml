@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>C Programming on HeapCreate</title>
+    <link>http://localhost:1313/tags/c-programming/</link>
+    <description>Recent content in C Programming on HeapCreate</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 27 Jan 2024 17:37:10 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/c-programming/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Part 0x01: Creating custom printf()</title>
+      <link>http://localhost:1313/posts/formatstring_custom_printf/</link>
+      <pubDate>Sat, 27 Jan 2024 17:37:10 +0800</pubDate>
+      <guid>http://localhost:1313/posts/formatstring_custom_printf/</guid>
+      <description>&lt;p&gt;In this blog, we will develop our own printf function, and of course with some limitation. The goal of creating our own printf function is to gain a better grasp of how it works and to have more control over the output of your applications.&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;strong&gt;Alert&lt;/strong&gt; 🚨&#xA;To summarize, while it is feasible to develop a function similar to &lt;code&gt;printf&lt;/code&gt; without using the &lt;code&gt;printf()&lt;/code&gt; function, it would be a time consuming effort, and the existing &lt;code&gt;printf()&lt;/code&gt; function provides a reliable and well-tested implementation.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

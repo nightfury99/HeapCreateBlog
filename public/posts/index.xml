@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on HeapCreate</title>
+    <link>http://localhost:1313/posts/</link>
+    <description>Recent content in Posts on HeapCreate</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 27 Jan 2024 17:37:10 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Understanding SSTI on Twig</title>
+      <link>http://localhost:1313/posts/understanding_ssti/</link>
+      <pubDate>Wed, 09 Nov 2022 16:51:26 +0800</pubDate>
+      <guid>http://localhost:1313/posts/understanding_ssti/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://medium.com/@shauqighost99/understanding-ssti-on-twig-10d7c3431980&#34;&gt;My previous blog on Medium&lt;/a&gt;&lt;/p&gt;&#xA;&lt;figure&gt;&lt;img src=&#34;http://localhost:1313/img/posts/understanding_ssti/1.png&#34; width=&#34;100%&#34;&gt;&#xA;&lt;/figure&gt;&#xA;&#xA;&lt;p&gt;SSTI or Server Side Template Injection, is not a new vulnerability. SSTI already exists more that 5 years I believed and still being use for exploitation untill today. So, I would like to share with you guys about basic understanding on SSTI on Twig and Symfony application (based on past CTF).&lt;/p&gt;&#xA;&lt;h2 id=&#34;what-is-twig&#34;&gt;What is Twig&lt;/h2&gt;&#xA;&lt;p&gt;Before we jump into the main point, let me tell you what Twig actually is and how its work in simple term. Twig is a templating language for PHP, by simply meaning &amp;ldquo;is a tool used to output variables inside HTML&amp;rdquo;. A normal template file extention is .html.twig but it does not realy matter, it could be any text-based format(HTML, XML, CSV, etc.). The syntax for using Twig template is fairly simple such as &lt;code&gt;{{ variable or expression }}&lt;/code&gt; for output and &lt;code&gt;{{ % % }}&lt;/code&gt; for logical operation (for loop, etc.). A template (inside curly bracket) contains variables, function or expression, which then will be replaced with values when template is evaluated. Figure 1 shows how does its work.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Unserialize without unserialize()</title>
+      <link>http://localhost:1313/posts/unserialize_without_unserialize/</link>
+      <pubDate>Wed, 03 May 2023 16:47:01 +0800</pubDate>
+      <guid>http://localhost:1313/posts/unserialize_without_unserialize/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Deserialization vulnerability has been around for a long time especially in php, java and .NET framework. The research community has been interested in deserialization vulnerability for more a decade now. Since &lt;a href=&#34;https://owasp.org/www-pdf-archive/Utilizing-Code-Reuse-Or-Return-Oriented-Programming-In-PHP-Application-Exploits.pdf&#34;&gt;Stefan Essar&lt;/a&gt; originally detailed the possibility of unserializing data controlled by attackers in PHP in 2009, the topic has gained widespread awareness. Thus, new attack chains emerge each year, utilising these flaws in programming languages such as Java and C#.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Emoji Webshell 🐚</title>
+      <link>http://localhost:1313/posts/emoji_webshell/</link>
+      <pubDate>Thu, 22 Sep 2022 15:33:41 +0800</pubDate>
+      <guid>http://localhost:1313/posts/emoji_webshell/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Last time I tried to push myself on learning how to construct a webshell without using any alphabet in PHP. There are a lot of techniques that can be used such as base operation, auto increment, XOR and etc. This &lt;a href=&#34;https://websec-readthedocs-io.translate.goog/zh/latest/language/php/webshell.html?_x_tr_sl=auto&amp;amp;_x_tr_tl=en&amp;amp;_x_tr_hl=zh-CN&#34;&gt;blog&lt;/a&gt; have decent techniques that can be used for obfuscation.&#xA;&lt;figure&gt;&lt;img src=&#34;http://localhost:1313/img/posts/emoji_webshell/1.png&#34;&gt;&#xA;&lt;/figure&gt;&#xA;&lt;/p&gt;&#xA;&lt;h2 id=&#34;objective-of-obfuscated-webshell&#34;&gt;Objective of obfuscated webshell&lt;/h2&gt;&#xA;&lt;p&gt;The objective of obfuscation webshell is simple, execute os command without detection. Im assuming the server&amp;rsquo;s configuration is not disabling php functions like &lt;code&gt;system()&lt;/code&gt;, &lt;code&gt;passthru()&lt;/code&gt;, &lt;code&gt;shell_exec()&lt;/code&gt; and other functions that can execute OS command. If the server disabling those function, there will be another topic to bypass the protection. In this blog, we are going to use base64 as encoding, well, it is not recommended in the real world because WAF and EDR pretty good handling base64, so consider to use other method to encode/encrypt when the payload. Anyway, below is my simple webshell:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Part 0x01: Creating custom printf()</title>
+      <link>http://localhost:1313/posts/formatstring_custom_printf/</link>
+      <pubDate>Sat, 27 Jan 2024 17:37:10 +0800</pubDate>
+      <guid>http://localhost:1313/posts/formatstring_custom_printf/</guid>
+      <description>&lt;p&gt;In this blog, we will develop our own printf function, and of course with some limitation. The goal of creating our own printf function is to gain a better grasp of how it works and to have more control over the output of your applications.&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;strong&gt;Alert&lt;/strong&gt; 🚨&#xA;To summarize, while it is feasible to develop a function similar to &lt;code&gt;printf&lt;/code&gt; without using the &lt;code&gt;printf()&lt;/code&gt; function, it would be a time consuming effort, and the existing &lt;code&gt;printf()&lt;/code&gt; function provides a reliable and well-tested implementation.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>[TCP1PCTF 2023] Unsecure</title>
+      <link>http://localhost:1313/posts/ctf_2023_tcp1pctf_unsecure/</link>
+      <pubDate>Tue, 17 Oct 2023 22:31:44 +0800</pubDate>
+      <guid>http://localhost:1313/posts/ctf_2023_tcp1pctf_unsecure/</guid>
+      <description>&lt;p&gt;For this challenge, we were provided with source code (dockerize). You also can download it &lt;a href=&#34;http://localhost:1313/img/posts/ctf_2023_tcp1pctf_unsecure/unSecure.zip&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;🚧 &lt;strong&gt;Description&lt;/strong&gt; : Do you know what &amp;ldquo;unserialize&amp;rdquo; means? In PHP, unserialize is something that can be very dangerous, you know? It can cause Remote Code Execution. And if it&amp;rsquo;s combined with an autoloader like in Composer, it can use gadgets in the autoloaded folder to achieve Remote Code Execution.&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;Based on the source code, the challenge is pretty straight forward. On index.php file, it took user input from cookie and passed it to &lt;code&gt;unserialize()&lt;/code&gt; function.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>[TCP1PCTF 2023] PDFIFY</title>
+      <link>http://localhost:1313/posts/ctf_2023_tcp1pctf_pdfify/</link>
+      <pubDate>Tue, 17 Oct 2023 00:14:36 +0800</pubDate>
+      <guid>http://localhost:1313/posts/ctf_2023_tcp1pctf_pdfify/</guid>
+      <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;&#xA;&lt;p&gt;For this challenge, we were provided with source code (dockerize). You also can download it &lt;a href=&#34;http://localhost:1313/img/posts/ctf_2023_tcp1pctf_PDFIFY/pdfify.zip&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;🧨 &lt;strong&gt;Disclaimer&lt;/strong&gt; : This walkthrough is on my local network(and some VPN) because I forgot to screenshot it during competition. 😅&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;Starting with reading &lt;code&gt;docker-compose.yml&lt;/code&gt; and &lt;code&gt;./src/infra/docker/php/Dockerfile&lt;/code&gt;, I found out there were two web applications (php and nodejs) running on the same server, but only one web application was exposed publicly. The php application (Codeigniter) was exposed publicly at port 29458 and nodejs application were served internally at port 5000. You also can spawn the docker to analyze it.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>[WargamesMY 2022] MostFriendlyApp</title>
+      <link>http://localhost:1313/posts/ctf_2022_wargames_mostfriendlyapp/</link>
+      <pubDate>Mon, 26 Dec 2022 16:47:01 +0800</pubDate>
+      <guid>http://localhost:1313/posts/ctf_2022_wargames_mostfriendlyapp/</guid>
+      <description>&lt;p&gt;This web challenge did not provide source code so it is completely blackbox testing. Btw I did not manage to solve all questions on time because of some health related reason 😷.&lt;/p&gt;&#xA;&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;&#xA;&lt;h3 id=&#34;challenge-description&#34;&gt;Challenge Description&lt;/h3&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;🚧 I created an account in this website, but lost my authenticator and forgot my password. Can you help me to get my account back? My username is &lt;code&gt;godam&lt;/code&gt;&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;Before attacking the system, I prefer to understand the system first in term of functionality/features or flow. Basically the challenge have features like:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>[WargamesMY 2022] C0mmand33r</title>
+      <link>http://localhost:1313/posts/ctf_2022_wargames_c0mmand33r/</link>
+      <pubDate>Mon, 26 Dec 2022 16:47:01 +0900</pubDate>
+      <guid>http://localhost:1313/posts/ctf_2022_wargames_c0mmand33r/</guid>
+      <description>&lt;p&gt;Im not going to give full walkthrough for now since im more interested vulnerability on the web. Visit &lt;a href=&#34;https://github.com/WargamesMY/2022/blob/main/writeup/Richard_Parker.pdf&#34;&gt;this link&lt;/a&gt; for full writeup.&lt;/p&gt;&#xA;&lt;h2 id=&#34;walkthrough&#34;&gt;Walkthrough&lt;/h2&gt;&#xA;&lt;h3 id=&#34;usertxt&#34;&gt;user.txt&lt;/h3&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;🚧 &lt;strong&gt;Description&lt;/strong&gt; : User flag located in /home//user.txt&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;We were given a &lt;a href=&#34;https://tryhackme.com/jr/wgm2022medium&#34;&gt;tryhackme&lt;/a&gt; link so if you guys want to give a shot, go check it out. Once the machine boot up, we can start the challenge straight away. After I fired up nmap with simple command &lt;code&gt;sudo nmap -T4 -A -v 10.10.89.238&lt;/code&gt;, two ports were opened which are 22 (SSH) and 3000 (python http server). So we have a python web application on port 3000. After navigating through all possible webpage, there were only two webpage available, login page and register page.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

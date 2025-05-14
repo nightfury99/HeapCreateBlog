@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ctf on HeapCreate</title>
+    <link>http://localhost:1313/tags/ctf/</link>
+    <description>Recent content in Ctf on HeapCreate</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 17 Oct 2023 22:31:44 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/ctf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[TCP1PCTF 2023] Unsecure</title>
+      <link>http://localhost:1313/posts/ctf_2023_tcp1pctf_unsecure/</link>
+      <pubDate>Tue, 17 Oct 2023 22:31:44 +0800</pubDate>
+      <guid>http://localhost:1313/posts/ctf_2023_tcp1pctf_unsecure/</guid>
+      <description>&lt;p&gt;For this challenge, we were provided with source code (dockerize). You also can download it &lt;a href=&#34;http://localhost:1313/img/posts/ctf_2023_tcp1pctf_unsecure/unSecure.zip&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;🚧 &lt;strong&gt;Description&lt;/strong&gt; : Do you know what &amp;ldquo;unserialize&amp;rdquo; means? In PHP, unserialize is something that can be very dangerous, you know? It can cause Remote Code Execution. And if it&amp;rsquo;s combined with an autoloader like in Composer, it can use gadgets in the autoloaded folder to achieve Remote Code Execution.&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;Based on the source code, the challenge is pretty straight forward. On index.php file, it took user input from cookie and passed it to &lt;code&gt;unserialize()&lt;/code&gt; function.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>[TCP1PCTF 2023] PDFIFY</title>
+      <link>http://localhost:1313/posts/ctf_2023_tcp1pctf_pdfify/</link>
+      <pubDate>Tue, 17 Oct 2023 00:14:36 +0800</pubDate>
+      <guid>http://localhost:1313/posts/ctf_2023_tcp1pctf_pdfify/</guid>
+      <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;&#xA;&lt;p&gt;For this challenge, we were provided with source code (dockerize). You also can download it &lt;a href=&#34;http://localhost:1313/img/posts/ctf_2023_tcp1pctf_PDFIFY/pdfify.zip&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;🧨 &lt;strong&gt;Disclaimer&lt;/strong&gt; : This walkthrough is on my local network(and some VPN) because I forgot to screenshot it during competition. 😅&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;Starting with reading &lt;code&gt;docker-compose.yml&lt;/code&gt; and &lt;code&gt;./src/infra/docker/php/Dockerfile&lt;/code&gt;, I found out there were two web applications (php and nodejs) running on the same server, but only one web application was exposed publicly. The php application (Codeigniter) was exposed publicly at port 29458 and nodejs application were served internally at port 5000. You also can spawn the docker to analyze it.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>[WargamesMY 2022] MostFriendlyApp</title>
+      <link>http://localhost:1313/posts/ctf_2022_wargames_mostfriendlyapp/</link>
+      <pubDate>Mon, 26 Dec 2022 16:47:01 +0800</pubDate>
+      <guid>http://localhost:1313/posts/ctf_2022_wargames_mostfriendlyapp/</guid>
+      <description>&lt;p&gt;This web challenge did not provide source code so it is completely blackbox testing. Btw I did not manage to solve all questions on time because of some health related reason 😷.&lt;/p&gt;&#xA;&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;&#xA;&lt;h3 id=&#34;challenge-description&#34;&gt;Challenge Description&lt;/h3&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;🚧 I created an account in this website, but lost my authenticator and forgot my password. Can you help me to get my account back? My username is &lt;code&gt;godam&lt;/code&gt;&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;Before attacking the system, I prefer to understand the system first in term of functionality/features or flow. Basically the challenge have features like:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>[WargamesMY 2022] C0mmand33r</title>
+      <link>http://localhost:1313/posts/ctf_2022_wargames_c0mmand33r/</link>
+      <pubDate>Mon, 26 Dec 2022 16:47:01 +0900</pubDate>
+      <guid>http://localhost:1313/posts/ctf_2022_wargames_c0mmand33r/</guid>
+      <description>&lt;p&gt;Im not going to give full walkthrough for now since im more interested vulnerability on the web. Visit &lt;a href=&#34;https://github.com/WargamesMY/2022/blob/main/writeup/Richard_Parker.pdf&#34;&gt;this link&lt;/a&gt; for full writeup.&lt;/p&gt;&#xA;&lt;h2 id=&#34;walkthrough&#34;&gt;Walkthrough&lt;/h2&gt;&#xA;&lt;h3 id=&#34;usertxt&#34;&gt;user.txt&lt;/h3&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;🚧 &lt;strong&gt;Description&lt;/strong&gt; : User flag located in /home//user.txt&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;We were given a &lt;a href=&#34;https://tryhackme.com/jr/wgm2022medium&#34;&gt;tryhackme&lt;/a&gt; link so if you guys want to give a shot, go check it out. Once the machine boot up, we can start the challenge straight away. After I fired up nmap with simple command &lt;code&gt;sudo nmap -T4 -A -v 10.10.89.238&lt;/code&gt;, two ports were opened which are 22 (SSH) and 3000 (python http server). So we have a python web application on port 3000. After navigating through all possible webpage, there were only two webpage available, login page and register page.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

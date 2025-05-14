@@ -2,7 +2,7 @@ baseURL = "https://heapcreate.com/"
 languageCode = "en-us"
 title = "HeapCreate"
 theme = "PaperMod"
-paginate = 5
+pagination.pagerSize = 5
 enableRobotsTXT = true
 enableInlineShortcodes = true
 buildDrafts = false
@@ -32,49 +32,49 @@ comments = true
 giscusTheme = "preferred_color_scheme"
 disableComments = false
 
-  [params.homeInfoParams]
-  Title = "Hello strangers 👋"
-  Content = "This place serves as my note and everything I learnt 🌲"
+[params.homeInfoParams]
+Title = "Hello strangers 👋"
+Content = "This place serves as my note and everything I learnt 🌲"
 
-  [[params.socialIcons]]
-  name = "twitter"
-  url = "https://twitter.com/ahmadshauqi4"
+[[params.socialIcons]]
+name = "twitter"
+url = "https://twitter.com/ahmadshauqi4"
 
-  [[params.socialIcons]]
-  name = "github"
-  url = "https://github.com/nightfury99"
+[[params.socialIcons]]
+name = "github"
+url = "https://github.com/nightfury99"
 
-  [[params.socialIcons]]
-  name = "behance"
-  url = "https://www.behance.net/shauqiAppleDeveloper"
+[[params.socialIcons]]
+name = "behance"
+url = "https://www.behance.net/shauqiAppleDeveloper"
 
-  [[params.socialIcons]]
-  name = "medium"
-  url = "https://medium.com/@shauqighost99"
+[[params.socialIcons]]
+name = "medium"
+url = "https://medium.com/@shauqighost99"
 
-  [params.cover]
-  linkFullImages = true
+[params.cover]
+linkFullImages = true
 
-  [params.assets]
-  favicon = "icons/heapcreate_icon.png"
+[params.assets]
+favicon = "icons/heapcreate_icon.png"
 
-  [params.label]
-  text = " HeapCreate"
-  icon = "icons/heapcreate_icon.png"
-  iconDark = "icons/heapcreate_icon.png"
-  iconHeight = 20
+[params.label]
+text = " HeapCreate"
+icon = "icons/heapcreate_icon.png"
+iconDark = "icons/heapcreate_icon.png"
+iconHeight = 20
 
-  [params.fuseOpts]
-  isCaseSensitive = false
-  shouldSort = true
-  location = 0
-  distance = 1_000
-  threshold = 0.4
-  minMatchCharLength = 0
-  keys = [ "title", "permalink", "summary", "content" ]
+[params.fuseOpts]
+isCaseSensitive = false
+shouldSort = true
+location = 0
+distance = 1_000
+threshold = 0.4
+minMatchCharLength = 0
+keys = ["title", "permalink", "summary", "content"]
 
 [outputs]
-home = [ "HTML", "RSS", "JSON" ]
+home = ["HTML", "RSS", "JSON"]
 
 [[menu.main]]
 identifier = "home"
@@ -107,7 +107,7 @@ url = "/about/"
 weight = 50
 
 [security.funcs]
-getenv = [ "^HUGO_", "^WC_" ]
+getenv = ["^HUGO_", "^WC_"]
 
 # [markup] https://gohugo.io/content-management/syntax-highlighting/
 #   [markup.highlight]
