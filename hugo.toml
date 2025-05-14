@@ -1,7 +1,6 @@
 baseURL = "https://heapcreate.com/"
 languageCode = "en-us"
 title = "HeapCreate"
-theme = "PaperMod"
 pagination.pagerSize = 5
 enableRobotsTXT = true
 enableInlineShortcodes = true

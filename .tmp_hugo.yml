@@ -1,7 +1,7 @@
 baseURL: ""
 languageCode: en-us
 title: HeapCreate
-theme: PaperMod
+# theme: PaperMod
 paginate: 5
 
 enableRobotsTXT: true
@@ -54,7 +54,7 @@ params:
   assets:
     favicon: "icons/heapcreate_icon.png"
   label:
-    text: 'HeapCreate'
+    text: "HeapCreate"
     icon: icons/heapcreate_icon.png
     iconDark: icons/heapcreate_icon.png
     iconHeight: 20
@@ -102,3 +102,4 @@ security:
     getenv:
       - ^HUGO_
       - ^WC_
+
